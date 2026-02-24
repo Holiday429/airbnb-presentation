@@ -1,0 +1,417 @@
+/* Career Journey Styles */
+
+.career-intro {
+  text-align: center;
+  padding: 48px 32px;
+  background: white;
+  border-radius: 16px;
+  width: 600px;
+  margin: 0 0 32px;
+  border: 1px solid #ebebeb;
+  box-sizing: border-box;
+}
+
+.career-intro h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 12px;
+}
+
+.career-intro p {
+  font-size: 16px;
+  color: #717171;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.career-intro .start-journey-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #ff385c 0%, #e61e4d 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
+}
+
+.career-intro .start-journey-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 56, 92, 0.4);
+}
+
+.career-intro.hidden {
+  display: none;
+}
+
+.career-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.career-header h2 {
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 600;
+  color: #222222;
+}
+
+.reverse-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: white;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222222;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.reverse-button:hover {
+  background-color: #222222;
+  color: white;
+}
+
+.reverse-button svg {
+  transition: transform 0.3s ease;
+}
+
+.reverse-button.reversed svg {
+  transform: rotate(180deg);
+}
+
+.journey-canvas-container {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  margin-bottom: 32px;
+}
+
+#journey-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.journey-timeline {
+  position: relative;
+  width: 100%;
+  padding: 0 0 40px;
+  z-index: 2;
+}
+
+
+/* Experience cards with spacing between them */
+.experience-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  padding: 28px 32px;
+  width: 600px;
+  margin: 0 0 24px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #ebebeb;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+}
+
+.experience-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.experience-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.experience-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.company-logo-container {
+  width: 96px;
+  height: 96px;
+  border: 1px solid #ebebeb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+
+.company-logo-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.company-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222222;
+  line-height: 1.3;
+}
+
+.experience-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  min-width: 0;
+}
+
+.position-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #222222;
+  line-height: 1.3;
+}
+
+.work-period {
+  font-size: 14px;
+  color: #717171;
+  font-weight: 500;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  padding: 6px 14px;
+  background-color: #f7f7f7;
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #222222;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.next-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #ff385c 0%, #e61e4d 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
+  cursor: pointer;
+}
+
+.next-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 56, 92, 0.4);
+}
+
+.next-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
+}
+
+.next-button:disabled {
+  background: #ebebeb;
+  color: #717171;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.next-button svg {
+  transition: transform 0.3s ease;
+}
+
+.next-button:hover:not(:disabled) svg {
+  transform: translateX(4px);
+}
+
+/* Inline connector and button styles */
+.experience-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.experience-connector.visible {
+  opacity: 1;
+}
+
+.connector-svg {
+  display: block;
+}
+
+
+.next-button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 600px;
+  margin: 8px 0 24px;
+}
+
+/* No arrow in the button */
+.inline-next-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #ff385c 0%, #e61e4d 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
+}
+
+.inline-next-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 56, 92, 0.4);
+}
+
+.connector-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(180deg, #ff385c 0%, #e61e4d 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.connector-line.visible {
+  opacity: 1;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .career-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .reverse-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .experience-card {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .experience-connector {
+    width: 100%;
+  }
+
+  .next-button-wrapper {
+    width: 100%;
+  }
+
+  .experience-left {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+  }
+
+  .company-logo-container {
+    width: 64px;
+    height: 64px;
+  }
+
+  .next-button {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-card {
+    padding: 20px;
+  }
+
+  .company-logo-container {
+    width: 64px;
+    height: 64px;
+    padding: 12px;
+  }
+
+  .company-name {
+    font-size: 14px;
+  }
+
+  .position-title {
+    font-size: 18px;
+  }
+
+  .work-period {
+    font-size: 13px;
+  }
+
+  .skill-tag {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Animation for canvas drawing */
+@keyframes drawLine {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 100%;
+  }
+}
+

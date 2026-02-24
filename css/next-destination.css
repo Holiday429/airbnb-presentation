@@ -1,0 +1,953 @@
+/* ========================================
+   Next Destination Page
+   ======================================== */
+
+.nd-page {
+  width: 100%;
+  max-width: 872px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+.nd-page > h2 {
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.nd-subtitle {
+  font-size: 16px;
+  color: #717171;
+  line-height: 1.5;
+  margin-bottom: 40px;
+}
+
+/* ========================================
+   Boarding Pass Hero
+   ======================================== */
+.nd-boarding-pass {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 24px;
+  padding: 40px 48px;
+  margin-bottom: 40px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  min-height: 180px;
+}
+
+/* Decorative dots pattern */
+.nd-boarding-pass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* Dashed divider line (like a real boarding pass cut line) */
+.nd-boarding-pass::after {
+  content: '';
+  position: absolute;
+  left: 62%;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  border-left: 2px dashed rgba(255,255,255,0.12);
+}
+
+.nd-pass-left {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.nd-pass-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(255,90,95,0.2);
+  border: 1px solid rgba(255,90,95,0.35);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #ff8a8e;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.nd-pass-tag svg {
+  width: 10px;
+  height: 10px;
+}
+
+.nd-pass-field {
+  margin-bottom: 14px;
+}
+
+.nd-pass-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+
+.nd-pass-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+}
+
+.nd-pass-destination {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ff5a5f;
+  line-height: 1.2;
+}
+
+.nd-pass-destination span {
+  color: #ff5a5f;
+}
+
+.nd-pass-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 16px;
+}
+
+.nd-pass-right {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  padding-left: 32px;
+}
+
+.nd-airbnb-mark {
+  width: 80px;
+  height: 80px;
+  opacity: 0.9;
+}
+
+.nd-airbnb-mark path {
+  fill: #ff5a5f;
+}
+
+.nd-pass-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 999px;
+  padding: 7px 18px;
+  white-space: nowrap;
+}
+
+.nd-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: ndStatusPulse 2s ease-in-out infinite;
+}
+
+@keyframes ndStatusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ========================================
+   Story Arc — connecting projects
+   ======================================== */
+.nd-story-arc {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 40px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  padding: 20px 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nd-story-arc::-webkit-scrollbar { display: none; }
+
+.nd-arc-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  flex-shrink: 0;
+  min-width: 120px;
+}
+
+.nd-arc-icon {
+  width: 48px;
+  height: 48px;
+  background: white;
+  border: 2px solid #ebebeb;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.nd-arc-node.is-active .nd-arc-icon {
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 4px 12px rgba(255,90,95,0.2);
+}
+
+.nd-arc-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.3;
+}
+
+.nd-arc-sub {
+  font-size: 10px;
+  color: #717171;
+}
+
+.nd-arc-arrow {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  color: #d0d0d0;
+}
+
+.nd-arc-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ========================================
+   Four Reflection Chapters
+   ======================================== */
+.nd-chapters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.nd-chapter {
+  background: white;
+  border: 1px solid #ebebeb;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.nd-chapter:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.nd-chapter.is-open {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  border-color: #ddd;
+}
+
+.nd-chapter-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 24px 28px;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.nd-chapter-trigger:hover {
+  background: #fafafa;
+}
+
+.nd-chapter.is-open .nd-chapter-trigger {
+  background: #fafafa;
+}
+
+.nd-chapter-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nd-ch-num {
+  font-size: 13px;
+  font-weight: 800;
+  color: #c8c8c8;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.nd-chapter.is-open .nd-ch-num {
+  color: var(--airbnb-coral);
+}
+
+.nd-ch-icon {
+  width: 44px;
+  height: 44px;
+  background: #f7f7f7;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.nd-chapter.is-open .nd-ch-icon {
+  background: #fff0f0;
+}
+
+.nd-ch-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #717171;
+  transition: color 0.3s ease;
+}
+
+.nd-chapter.is-open .nd-ch-icon svg {
+  color: var(--airbnb-coral);
+}
+
+.nd-ch-title-group {
+  flex: 1;
+}
+
+.nd-ch-title-group h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.nd-ch-preview {
+  font-size: 13px;
+  color: #717171;
+}
+
+.nd-ch-arrow {
+  width: 20px;
+  height: 20px;
+  color: #b0b0b0;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+}
+
+.nd-chapter.is-open .nd-ch-arrow {
+  transform: rotate(180deg);
+  color: var(--airbnb-coral);
+}
+
+/* Chapter Body */
+.nd-chapter-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nd-chapter.is-open .nd-chapter-body {
+  max-height: 800px;
+}
+
+.nd-chapter-inner {
+  padding: 0 28px 28px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 24px;
+}
+
+/* ========================================
+   Chapter 1: Strengths Grid
+   ======================================== */
+.nd-strength-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.nd-strength-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  transition: all 0.25s ease;
+}
+
+.nd-strength-card:hover {
+  background: white;
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 4px 12px rgba(255,90,95,0.1);
+  transform: translateY(-2px);
+}
+
+.nd-str-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--airbnb-coral);
+}
+
+.nd-str-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.nd-strength-card h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.nd-strength-card p {
+  font-size: 12px;
+  color: #717171;
+  line-height: 1.5;
+}
+
+/* ========================================
+   Chapter 2: Impact Areas
+   ======================================== */
+.nd-impact-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.nd-impact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 20px 16px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+
+.nd-impact-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--airbnb-coral);
+}
+
+.nd-impact-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.nd-impact-item:hover {
+  background: white;
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 4px 12px rgba(255,90,95,0.1);
+}
+
+.nd-impact-item h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ========================================
+   Chapter 3: Motivation / Problem Statements
+   ======================================== */
+.nd-problems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nd-problem-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #fafafa;
+  border-radius: 14px;
+  border: 1px solid #ebebeb;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: all 0.3s ease;
+}
+
+.nd-chapter.is-open .nd-problem-card {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nd-chapter.is-open .nd-problem-card:nth-child(1) { transition-delay: 0.1s; }
+.nd-chapter.is-open .nd-problem-card:nth-child(2) { transition-delay: 0.2s; }
+.nd-chapter.is-open .nd-problem-card:nth-child(3) { transition-delay: 0.3s; }
+
+.nd-problem-bullet {
+  width: 28px;
+  height: 28px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.nd-problem-text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.nd-problem-text span {
+  display: block;
+  font-size: 12px;
+  color: #717171;
+  font-weight: 400;
+  margin-top: 3px;
+}
+
+/* ========================================
+   Chapter 4: Vision Statement
+   ======================================== */
+.nd-vision-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nd-vision-headline {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.4;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+  border: 1px solid #ffd6d6;
+  border-radius: 16px;
+  border-left: 4px solid var(--airbnb-coral);
+}
+
+.nd-vision-points {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.nd-vision-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: #fafafa;
+  border-radius: 14px;
+  border: 1px solid #ebebeb;
+  font-size: 14px;
+  color: #222;
+  font-weight: 600;
+}
+
+.nd-vision-point:hover {
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 4px 12px rgba(255,90,95,0.1);
+  background: white;
+}
+
+.nd-vision-point svg {
+  width: 22px;
+  height: 22px;
+  color: var(--airbnb-coral);
+  flex-shrink: 0;
+}
+
+/* ========================================
+   Why Airbnb Section
+   ======================================== */
+.nd-why-section {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+  border: 1px solid #f0d0d0;
+  border-radius: 24px;
+  padding: 36px 40px;
+  margin-bottom: 32px;
+}
+
+.nd-why-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.nd-why-logo {
+  width: 36px;
+  height: 36px;
+}
+
+.nd-why-logo path {
+  fill: #ff5a5f;
+}
+
+.nd-why-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+}
+
+.nd-why-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.nd-why-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.nd-why-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.nd-why-stat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #ebebeb;
+  overflow: hidden;
+  flex: 1;
+}
+
+.nd-why-stat-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 16px 18px;
+  width: 92px;
+  flex-shrink: 0;
+  background: #fafafa;
+  border-right: 1px solid #ebebeb;
+  align-self: stretch;
+}
+
+.nd-why-stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--airbnb-coral);
+  line-height: 1;
+}
+
+.nd-why-stat-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: #b0b0b0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.nd-why-stat-sub {
+  font-size: 15px;
+  color: #484848;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 16px 18px;
+}
+
+.nd-why-stat-label {
+  font-size: 13px;
+  color: #717171;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.nd-why-belong {
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--airbnb-coral);
+  padding: 4px 4px 0;
+  line-height: 1.3;
+}
+
+.nd-why-tag-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  flex: 1;
+}
+
+.nd-why-tag-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nd-why-tag-icon svg {
+  width: 18px;
+  height: 18px;
+  color: var(--airbnb-coral);
+}
+
+.nd-why-text {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.nd-why-quote {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.65;
+  padding-left: 16px;
+  border-left: 3px solid var(--airbnb-coral);
+}
+
+.nd-why-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nd-why-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #484848;
+  line-height: 1.5;
+}
+
+.nd-why-list li svg {
+  width: 14px;
+  height: 14px;
+  color: var(--airbnb-coral);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ========================================
+   Final CTA
+   ======================================== */
+.nd-final {
+  text-align: center;
+  padding: 40px 20px;
+  border: 1px solid #ebebeb;
+  border-radius: 24px;
+  background: #fafafa;
+}
+
+.nd-final-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--airbnb-coral);
+  margin-bottom: 16px;
+}
+
+.nd-final h3 {
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.nd-final p {
+  font-size: 15px;
+  color: #717171;
+  max-width: 440px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+.nd-final-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.nd-final-word {
+  padding: 7px 20px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--airbnb-coral);
+  border: 1.5px solid rgba(255, 90, 95, 0.25);
+  background: linear-gradient(135deg, rgba(255, 90, 95, 0.07), rgba(255, 90, 95, 0.02));
+  letter-spacing: 0.01em;
+}
+
+.nd-final-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.nd-final-logo svg {
+  width: 32px;
+  height: 32px;
+}
+
+.nd-final-logo svg path {
+  fill: var(--airbnb-coral);
+}
+
+.nd-final-wordmark {
+  font-family: 'Pacifico', cursive;
+  font-size: 28px;
+  color: var(--airbnb-coral);
+}
+
+/* ========================================
+   Slide-in Animations for chapter items
+   ======================================== */
+.nd-strength-card,
+.nd-impact-item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.nd-chapter.is-open .nd-strength-card,
+.nd-chapter.is-open .nd-impact-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nd-chapter.is-open .nd-strength-card:nth-child(1),
+.nd-chapter.is-open .nd-impact-item:nth-child(1) { transition-delay: 0.08s; }
+.nd-chapter.is-open .nd-strength-card:nth-child(2),
+.nd-chapter.is-open .nd-impact-item:nth-child(2) { transition-delay: 0.16s; }
+.nd-chapter.is-open .nd-strength-card:nth-child(3),
+.nd-chapter.is-open .nd-impact-item:nth-child(3) { transition-delay: 0.24s; }
+.nd-chapter.is-open .nd-strength-card:nth-child(4),
+.nd-chapter.is-open .nd-impact-item:nth-child(4) { transition-delay: 0.32s; }
+.nd-chapter.is-open .nd-strength-card:nth-child(5) { transition-delay: 0.40s; }
+.nd-chapter.is-open .nd-strength-card:nth-child(6) { transition-delay: 0.48s; }
+
+.nd-vision-point {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.nd-chapter.is-open .nd-vision-point:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.1s; }
+.nd-chapter.is-open .nd-vision-point:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.18s; }
+.nd-chapter.is-open .nd-vision-point:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.26s; }
+.nd-chapter.is-open .nd-vision-point:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.34s; }
+
+/* ========================================
+   Page entrance animation
+   ======================================== */
+.nd-page .nd-boarding-pass,
+.nd-page .nd-chapters,
+.nd-page .nd-why-section,
+.nd-page .nd-final {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.nd-page.is-visible .nd-boarding-pass { opacity: 1; transform: none; transition-delay: 0.1s; }
+.nd-page.is-visible .nd-chapters { opacity: 1; transform: none; transition-delay: 0.25s; }
+.nd-page.is-visible .nd-why-section { opacity: 1; transform: none; transition-delay: 0.4s; }
+.nd-page.is-visible .nd-final { opacity: 1; transform: none; transition-delay: 0.5s; }
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (max-width: 768px) {
+  .nd-boarding-pass {
+    flex-direction: column;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+
+  .nd-boarding-pass::after { display: none; }
+
+  .nd-pass-right {
+    padding-left: 0;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(255,255,255,0.1);
+  }
+
+  .nd-strength-grid { grid-template-columns: 1fr; }
+  .nd-why-content { grid-template-columns: 1fr; }
+  .nd-vision-points { grid-template-columns: 1fr; }
+
+  .nd-chapter-trigger { padding: 18px 20px; }
+  .nd-chapter-inner { padding: 0 20px 20px; padding-top: 18px; }
+  .nd-why-section { padding: 24px; }
+}
+
+@media (max-width: 480px) {
+  .nd-pass-destination { font-size: 18px; }
+  .nd-why-stat-num { font-size: 24px; }
+}

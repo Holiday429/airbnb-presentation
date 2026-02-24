@@ -1,0 +1,3890 @@
+/* ========================================
+   Project Highlights Page
+   ======================================== */
+
+.projects-page {
+  width: 100%;
+  max-width: 872px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+.projects-page > h2 {
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.projects-subtitle {
+  font-size: 16px;
+  color: #717171;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+/* ========================================
+   Project Tabs
+   ======================================== */
+.project-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ebebeb;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.project-tabs::-webkit-scrollbar { display: none; }
+
+.project-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  background: #f7f7f7;
+  border: 1px solid #ebebeb;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #484848;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.project-tab:hover {
+  background: white;
+  border-color: var(--airbnb-coral);
+  color: var(--airbnb-coral);
+}
+
+.project-tab.is-active {
+  background: var(--airbnb-coral);
+  border-color: var(--airbnb-coral);
+  color: white;
+}
+
+.tab-number {
+  font-weight: 700;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* ========================================
+   Deck (Presentation Mode)
+   ======================================== */
+.project-deck {
+  display: none;
+}
+
+.project-deck.is-active {
+  display: block;
+  animation: deckReveal 0.45s ease forwards;
+}
+
+@keyframes deckReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar + folder tabs — normal flow, scroll is a one-time jump on click */
+.deck-progress {
+  margin-bottom: 20px;
+}
+
+/* Progress bar removed in favour of folder tabs — kept hidden for JS compat */
+.deck-progress-bar { display: none; }
+
+.deck-progress-fill {
+  height: 100%;
+  background: var(--airbnb-coral);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Folder tab style — active tab sits on top of the coral shelf */
+.deck-step-indicators {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  border-bottom: 2px solid var(--airbnb-coral);
+  margin-top: 0;
+  overflow: visible;
+  scrollbar-width: none;
+}
+
+.deck-step-indicators::-webkit-scrollbar { display: none; }
+
+.deck-step {
+  flex: 1;
+  text-align: center;
+  padding: 10px 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #bbb;
+  background: #f5f5f5;
+  border: 1.5px solid #ddd;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  margin-right: 3px;
+  margin-bottom: -2px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.deck-step:last-child { margin-right: 0; }
+
+.deck-step:hover:not(.is-active) { background: #efefef; color: #717171; }
+
+.deck-step.is-active {
+  background: white;
+  border-color: var(--airbnb-coral);
+  border-bottom: 2px solid white;
+  color: var(--airbnb-coral);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.deck-step.is-visited { color: #999; }
+
+/* Slides */
+.deck-slide {
+  display: none;
+  min-height: 200px;
+}
+
+.deck-slide.is-active {
+  display: block;
+  animation: deckSlideIn 0.5s ease forwards;
+}
+
+@keyframes deckSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Navigation */
+.deck-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ebebeb;
+}
+
+.deck-prev,
+.deck-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deck-prev {
+  background: white;
+  border: 1px solid #222;
+  color: #222;
+}
+
+.deck-prev:hover:not(:disabled):not(.is-orb-back) { background: #f7f7f7; }
+.deck-prev:disabled { opacity: 0.25; cursor: not-allowed; }
+
+/* Back button turns coral when an orb-card is active (click to revert to circle) */
+.deck-prev.is-orb-back {
+  background: var(--airbnb-coral);
+  border-color: var(--airbnb-coral);
+  color: white;
+}
+.deck-prev.is-orb-back:hover { background: #e8344e; border-color: #e8344e; }
+
+.deck-next {
+  background: var(--airbnb-coral);
+  border: 1px solid var(--airbnb-coral);
+  color: white;
+}
+
+.deck-next:hover { background: #e8344e; border-color: #e8344e; }
+
+.deck-nav-hint {
+  font-size: 12px;
+  color: #b0b0b0;
+  letter-spacing: 0.02em;
+}
+
+/* ========================================
+   Stagger Entrance Animations
+   ======================================== */
+.deck-slide.is-active .anim-fade {
+  opacity: 0;
+  animation: staggerUp 0.5s ease forwards;
+}
+
+.deck-slide.is-active .anim-fade:nth-child(1) { animation-delay: 0.05s; }
+.deck-slide.is-active .anim-fade:nth-child(2) { animation-delay: 0.1s; }
+.deck-slide.is-active .anim-fade:nth-child(3) { animation-delay: 0.15s; }
+.deck-slide.is-active .anim-fade:nth-child(4) { animation-delay: 0.2s; }
+.deck-slide.is-active .anim-fade:nth-child(5) { animation-delay: 0.25s; }
+.deck-slide.is-active .anim-fade:nth-child(6) { animation-delay: 0.3s; }
+.deck-slide.is-active .anim-fade:nth-child(7) { animation-delay: 0.35s; }
+.deck-slide.is-active .anim-fade:nth-child(8) { animation-delay: 0.4s; }
+
+@keyframes staggerUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================
+   Slide 0: Overview
+   ======================================== */
+.slide-overview {
+  text-align: center;
+  padding: 24px 0 20px;
+}
+
+.slide-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  background: #f0f0f0;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #484848;
+  margin-bottom: 20px;
+}
+
+.slide-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Bixby hero accent */
+.overview-bixby {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.bixby-hero-drop {
+  width: 42px;
+  height: 56px;
+  filter: drop-shadow(0 0 16px rgba(78, 134, 255, 0.45));
+  animation: heroFloat 3s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 16px rgba(78, 134, 255, 0.45)); }
+  50% { transform: translateY(-6px) scale(1.06); filter: drop-shadow(0 0 24px rgba(78, 134, 255, 0.6)); }
+}
+
+.slide-overview h3 {
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.slide-tagline {
+  font-size: 17px;
+  color: #717171;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  padding: 24px 16px;
+  background: white;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.stat-card .stat-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--airbnb-coral);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-card .stat-desc {
+  font-size: 12px;
+  color: #717171;
+  font-weight: 500;
+}
+
+/* ========================================
+   Slide 1: Context — Side-by-Side + Reveal
+   ======================================== */
+.slide-context {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 16px 0;
+  align-items: start;
+}
+
+/* ========================================
+   Context V3 — Two Circles → Card Layout
+   ======================================== */
+.ctx-circles-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 48px 0 60px;
+  align-items: start;
+  justify-items: center;
+  /* Ensure enough page height for the jump-scroll to reach 113px alignment */
+  min-height: calc(100vh - 380px);
+}
+
+/* Circle (default) state */
+.ctx-orb {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  background: white;
+  margin: 0 auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease, border-radius 0.65s ease, width 0.65s ease, height 0.5s ease, margin 0.65s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.ctx-orb:not(.is-clicking):not(.is-active) {
+  animation: orbFloat 3.2s ease-in-out infinite;
+}
+
+.ctx-orb:nth-child(2):not(.is-clicking):not(.is-active) {
+  animation-delay: -1.6s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.ctx-orb:hover:not(.is-clicking):not(.is-active) {
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 0 0 4px rgba(255, 90, 95, 0.1);
+}
+
+/* Step 1: border turns coral on click */
+.ctx-orb.is-clicking {
+  border-color: var(--airbnb-coral);
+}
+
+/* Step 2: morphs to card */
+.ctx-orb.is-active {
+  border-color: var(--airbnb-coral);
+  border-radius: 16px;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  margin: 0;
+  cursor: default;
+  display: block;
+  align-self: stretch;
+  animation: none;
+}
+
+/* Circle face (hidden when card) */
+.ctx-orb-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.ctx-orb.is-active .ctx-orb-face {
+  display: none;
+}
+
+.ctx-orb-icon-wrap {
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f7;
+  border-radius: 50%;
+}
+
+.ctx-orb-icon-wrap svg {
+  width: 32px;
+  height: 32px;
+  color: #555;
+}
+
+.ctx-orb-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.ctx-orb-hint { display: none; }
+
+/* Card content (shown when active) */
+.ctx-orb-card {
+  display: none;
+  padding: 20px 22px 22px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ctx-orb.is-active .ctx-orb-card {
+  display: block;
+  animation: ctxCardReveal 0.6s 0.6s ease both;
+}
+
+.ctx-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 12px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ctx-card-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.ctx-card-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f7f7f7;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.ctx-card-item:last-child { border-bottom: none; }
+
+.ctx-card-item .card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.ctx-card-item .card-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ctx-card-item span {
+  font-size: 13px;
+  color: #484848;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* Item stagger animations */
+.ctx-orb.is-active .ctx-card-item:nth-child(1) { animation: ctxItemReveal 0.45s 0.75s ease forwards; }
+.ctx-orb.is-active .ctx-card-item:nth-child(2) { animation: ctxItemReveal 0.45s 0.92s ease forwards; }
+.ctx-orb.is-active .ctx-card-item:nth-child(3) { animation: ctxItemReveal 0.45s 1.09s ease forwards; }
+.ctx-orb.is-active .ctx-card-item:nth-child(4) { animation: ctxItemReveal 0.45s 1.26s ease forwards; }
+
+@keyframes ctxCardReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ctxItemReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.context-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.context-col-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 220px;
+}
+
+.icon-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 14px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  opacity: 0;
+  transform: translateY(10px);
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  overflow: hidden;
+  border-color: transparent;
+}
+
+.icon-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 80px;
+  padding: 12px 14px;
+  border-color: #ebebeb;
+}
+
+.icon-card.is-revealed:hover {
+  background: white;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  width: 36px;
+  height: 36px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.25s ease;
+}
+
+.icon-card.is-revealed:hover .card-icon {
+  background: #e8e8e8;
+}
+
+.card-icon svg {
+  width: 17px;
+  height: 17px;
+  color: #484848;
+}
+
+.card-icon.coral { background: #fff0f0; }
+.card-icon.coral svg { color: var(--airbnb-coral); }
+.card-icon.teal { background: #fff0f0; }
+.card-icon.teal svg { color: var(--airbnb-coral); }
+.card-icon.blue { background: #fff0f0; }
+.card-icon.blue svg { color: var(--airbnb-coral); }
+.card-icon.purple { background: #fff0f0; }
+.card-icon.purple svg { color: var(--airbnb-coral); }
+
+.icon-card span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Reveal Next button */
+.context-next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 7px 16px;
+  background: white;
+  border: 1.5px solid #222;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #222;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.context-next-btn:hover {
+  background: #222;
+  color: white;
+}
+
+.context-next-btn.is-done {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.context-next-btn svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+}
+
+.context-next-btn:hover svg {
+  transform: translateX(2px);
+}
+
+/* ========================================
+   Slide 2: Scenarios
+   ======================================== */
+.slide-scenarios {
+  padding: 16px 0;
+}
+
+.slide-scenarios > h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.slide-scenarios > p {
+  font-size: 13px;
+  color: #717171;
+  margin-bottom: 20px;
+}
+
+/* Scenario Tabs */
+.scenario-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.scenario-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: #f7f7f7;
+  border: 1.5px solid #ebebeb;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #484848;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.scenario-tab:hover {
+  border-color: var(--airbnb-coral);
+  color: var(--airbnb-coral);
+  background: white;
+}
+
+.scenario-tab.is-active {
+  background: var(--airbnb-coral);
+  border-color: var(--airbnb-coral);
+  color: white;
+}
+
+.tab-emoji { font-size: 15px; }
+
+/* Scenario Panels */
+.scenario-panel { display: none; }
+
+.scenario-panel.is-active {
+  display: block;
+  animation: deckSlideIn 0.4s ease forwards;
+}
+
+.scenario-content {
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  gap: 36px;
+  align-items: start;
+}
+
+.scenario-text h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.scenario-text .scenario-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--airbnb-coral);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.scenario-text p {
+  font-size: 14px;
+  color: #484848;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+/* Scenario description */
+.scenario-desc {
+  font-size: 13px;
+  color: #484848;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+/* Key point tags */
+.scenario-key-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.key-point {
+  padding: 5px 12px;
+  background: #f7f7f7;
+  border: 1px solid #ebebeb;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #222;
+}
+
+/* Scene illustration (legacy) */
+.scenario-scene {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.scenario-scene svg {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  opacity: 0.85;
+}
+
+/* Real image pair with reveal button */
+.scenario-imgs {
+  margin-top: 20px;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.scenario-img {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.scenario-img.is-active {
+  display: block;
+  animation: sceneFadeIn 0.35s ease;
+}
+
+@keyframes sceneFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.scenario-img-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  color: var(--airbnb-coral);
+}
+
+.scenario-img-btn:hover {
+  background: var(--airbnb-coral);
+  color: white;
+  transform: scale(1.1);
+}
+
+.scenario-img-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.scenario-img-btn.is-done {
+  display: none;
+}
+
+/* ========================================
+   Samsung Phone Mockup
+   ======================================== */
+.phone-frame {
+  width: 240px;
+  height: 480px;
+  background: #1a1a1a;
+  border-radius: 36px;
+  padding: 6px;
+  position: relative;
+  box-shadow:
+    inset 0 0 0 1.5px #3a3a3a,
+    0 24px 48px rgba(0, 0, 0, 0.35),
+    0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+/* Side buttons */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  right: -2.5px;
+  top: 100px;
+  width: 3px;
+  height: 40px;
+  background: #2a2a2a;
+  border-radius: 0 2px 2px 0;
+}
+
+.phone-frame::after {
+  content: '';
+  position: absolute;
+  left: -2.5px;
+  top: 80px;
+  width: 3px;
+  height: 28px;
+  background: #2a2a2a;
+  border-radius: 2px 0 0 2px;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #0a0a24 0%, #0f0f2e 50%, #12123a 100%);
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Camera punch hole */
+.phone-notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #060612;
+  border-radius: 50%;
+  z-index: 5;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Status bar */
+.phone-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 22px 4px;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.phone-status span {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.phone-status svg {
+  width: 10px;
+  height: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Chat area */
+.phone-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8px 14px 6px;
+  gap: 5px;
+  overflow: hidden;
+}
+
+/* Bixby listening indicator */
+.bixby-listening {
+  text-align: center;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 0 8px;
+  font-weight: 500;
+}
+
+/* ========================================
+   Bixby Water Drop Orb
+   ======================================== */
+.bixby-orb-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0 18px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.bixby-drop-wrap {
+  position: relative;
+  width: 44px;
+  height: 56px;
+}
+
+.bixby-drop-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 14px rgba(78, 134, 255, 0.5));
+}
+
+/* Ripple rings below drop */
+.bixby-ripple {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 14px;
+}
+
+.bixby-ripple::before,
+.bixby-ripple::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(78, 134, 255, 0.2);
+}
+
+@keyframes rippleOut {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.7); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
+}
+
+/* Bottom bar */
+.phone-bottom-bar {
+  height: 4px;
+  width: 36%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  margin: 0 auto 8px;
+}
+
+/* ========================================
+   Chat Start Button (overlay on phone)
+   ======================================== */
+.chat-start-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+  background: rgba(10, 10, 36, 0.6);
+  border-radius: 30px;
+  transition: opacity 0.4s ease;
+}
+
+.phone-screen.is-started .chat-start-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chat-start-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #4E86FF, #7c5cff);
+  border: none;
+  border-radius: 999px;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(78, 134, 255, 0.4);
+}
+
+.chat-start-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 24px rgba(78, 134, 255, 0.55);
+}
+
+.chat-start-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.chat-start-hint {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   Bixby Wake Animation States
+   ======================================== */
+/* Idle: orb is small and dim */
+.phone-screen .bixby-drop-svg {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.7);
+  filter: drop-shadow(0 0 6px rgba(78, 134, 255, 0.2));
+}
+
+/* Waking: orb expands and glows */
+.phone-screen.is-waking .bixby-drop-svg {
+  animation: bixbyWake 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes bixbyWake {
+  0% { transform: scale(0.7); filter: drop-shadow(0 0 6px rgba(78, 134, 255, 0.2)); }
+  40% { transform: scale(1.2); filter: drop-shadow(0 0 30px rgba(78, 134, 255, 0.8)); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 18px rgba(78, 134, 255, 0.55)); }
+}
+
+/* Listening: pulsing after wake */
+.phone-screen.is-listening .bixby-drop-svg {
+  animation: bixbyListen 1.8s ease-in-out infinite;
+}
+
+@keyframes bixbyListen {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 16px rgba(78, 134, 255, 0.5)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 24px rgba(78, 134, 255, 0.7)); }
+}
+
+/* Responding: morphing pulse */
+.phone-screen.is-responding .bixby-drop-svg {
+  animation: bixbyRespond 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes bixbyRespond {
+  0% { transform: scale(1) scaleX(1); filter: drop-shadow(0 0 14px rgba(78, 134, 255, 0.5)); }
+  100% { transform: scale(1.06) scaleX(0.94); filter: drop-shadow(0 0 20px rgba(124, 92, 255, 0.6)); }
+}
+
+/* Ripple only during listening/responding */
+.phone-screen.is-listening .bixby-ripple::before,
+.phone-screen.is-responding .bixby-ripple::before {
+  width: 30px; height: 10px;
+  animation: rippleOut 2.5s ease-out infinite;
+}
+
+.phone-screen.is-listening .bixby-ripple::after,
+.phone-screen.is-responding .bixby-ripple::after {
+  width: 46px; height: 14px;
+  animation: rippleOut 2.5s ease-out 0.6s infinite;
+}
+
+/* Hi Bixby wake text */
+.bixby-wake-text {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  padding: 16px 0 8px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.phone-screen.is-waking .bixby-wake-text,
+.phone-screen.is-listening .bixby-wake-text {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.phone-screen.is-started .bixby-wake-text {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.3s ease;
+}
+
+/* Listening text */
+.bixby-listening {
+  text-align: center;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 0 8px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.phone-screen.is-listening .bixby-listening,
+.phone-screen.is-responding .bixby-listening {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ========================================
+   Phone Chat Bubbles
+   ======================================== */
+.phone-bubble {
+  max-width: 78%;
+  padding: 7px 12px;
+  border-radius: 16px;
+  font-size: 10.5px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.phone-bubble.is-user {
+  align-self: flex-end;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom-right-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.phone-bubble.is-bot {
+  align-self: flex-start;
+  background: linear-gradient(135deg, rgba(78, 134, 255, 0.18), rgba(30, 203, 216, 0.12));
+  color: rgba(255, 255, 255, 0.92);
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(78, 134, 255, 0.12);
+}
+
+/* Bubbles animate only when JS adds is-visible */
+.phone-bubble.is-visible {
+  animation: bubbleIn 0.35s ease forwards;
+}
+
+@keyframes bubbleIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================
+   Slide 3: Role & Process
+   ======================================== */
+.slide-role {
+  padding: 16px 0;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--airbnb-coral);
+  color: white;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.role-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.role-section {
+  margin-bottom: 26px;
+}
+
+.role-section > h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 14px;
+}
+
+/* Progressive Process Timeline */
+.process-timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 20px 8px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.process-timeline::-webkit-scrollbar { display: none; }
+
+.process-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 80px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.process-node.is-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.node-icon-wrap {
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 2px solid var(--airbnb-coral);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.process-node.is-revealed .node-icon-wrap {
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.15);
+}
+
+.node-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+  color: var(--airbnb-coral);
+}
+
+.node-number {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  background: var(--airbnb-coral);
+  color: white;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node-label {
+  font-size: 10px;
+  color: #484848;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Advance arrow between nodes */
+.process-advance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: white;
+  border: 1.5px solid #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+  opacity: 0;
+}
+
+.process-advance.is-revealed {
+  opacity: 1;
+}
+
+.process-advance.is-done {
+  opacity: 0.25;
+  pointer-events: none;
+  background: #f0f0f0;
+}
+
+.process-advance:hover {
+  background: var(--airbnb-coral);
+  border-color: var(--airbnb-coral);
+}
+
+.process-advance svg {
+  width: 12px;
+  height: 12px;
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.process-advance:hover svg {
+  color: white;
+}
+
+/* Muted process nodes (User Research, Launch) */
+.process-node--muted .node-icon-wrap {
+  border-color: #999;
+  box-shadow: none !important;
+}
+.process-node--muted .node-icon-wrap svg {
+  color: #999;
+}
+.process-node--muted .node-number {
+  background: #999;
+}
+.process-node--muted .node-label {
+  color: #888;
+}
+
+/* Collaboration Diagram */
+.collab-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  min-height: 300px; /* JS sets actual height */
+  margin: 24px auto 0;
+  overflow: visible;
+}
+
+.collab-svg-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.collab-me {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--airbnb-coral);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  z-index: 3;
+  box-shadow: 0 2px 10px rgba(255, 90, 95, 0.3);
+}
+
+.collab-node {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+  --expand-x: 0px;
+  --expand-y: 0px;
+  transition: translate 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+
+.collab-node.is-active {
+  z-index: 10;
+  translate: var(--expand-x) var(--expand-y);
+}
+
+.collab-node--top {
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.collab-node--tl {
+  left: 0;
+  top: 0;
+}
+
+.collab-node--tr {
+  right: 0;
+  top: 0;
+}
+
+.collab-node--bl {
+  left: 0;
+  bottom: 0;
+}
+
+.collab-node--br {
+  right: 0;
+  bottom: 0;
+}
+
+/* Inner circle container — always stays circular */
+.collab-node-inner {
+  width: var(--circle-d, 160px);
+  height: var(--circle-d, 160px);
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: border-color 0.3s ease, width 0.55s cubic-bezier(0.4,0,0.2,1),
+              height 0.55s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease;
+}
+
+/* Hover: coral ring */
+.collab-node:not(.is-active):not(.is-clicking):hover .collab-node-inner {
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 0 0 4px rgba(255, 90, 95, 0.1);
+}
+
+/* is-clicking: border turns coral first */
+.collab-node.is-clicking .collab-node-inner {
+  border-color: var(--airbnb-coral);
+}
+
+/* is-active: circle grows, stays fully circular */
+.collab-node.is-active .collab-node-inner {
+  width: var(--expanded-d, 264px);
+  height: var(--expanded-d, 264px);
+  border-color: var(--airbnb-coral);
+}
+
+/* Face: shown when default */
+.collab-node-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  pointer-events: none;
+}
+
+.collab-node.is-active .collab-node-face {
+  display: none;
+}
+
+/* Card: shown when active — left-aligned inside the grown circle */
+.collab-node-card {
+  display: none;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.collab-node.is-active .collab-node-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: collabCardReveal 0.35s 0.3s ease both;
+}
+
+@keyframes collabCardReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.collab-node-name {
+  font-size: var(--font-name, 13px);
+  font-weight: 600;
+  color: #222;
+  line-height: 1.4;
+  user-select: none;
+}
+
+.collab-card-title {
+  font-size: var(--font-name, 13px);
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+  width: 100%;
+}
+
+.collab-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.collab-card-list li {
+  font-size: var(--font-item, 14px);
+  color: #555;
+  line-height: 1.5;
+  text-align: left;
+  padding-left: 12px;
+  position: relative;
+}
+
+.collab-card-list li::before {
+  content: "·";
+  color: var(--airbnb-coral);
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+}
+
+/* Stakeholder Triangle Layout */
+.stakeholder-triangle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  padding: 20px 0;
+}
+
+.triangle-top {
+  z-index: 1;
+}
+
+.triangle-bottom {
+  display: flex;
+  gap: 24px;
+  z-index: 1;
+}
+
+/* Connecting lines SVG */
+.triangle-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.triangle-lines line {
+  stroke: #ebebeb;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.stakeholder-card {
+  padding: 16px 18px;
+  background: white;
+  border: 1px solid #ebebeb;
+  border-radius: 14px;
+  text-align: center;
+  transition: all 0.25s ease;
+  min-width: 150px;
+}
+
+.stakeholder-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.stakeholder-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 8px;
+  background: #f7f7f7;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stakeholder-icon svg {
+  width: 20px;
+  height: 20px;
+  color: #484848;
+}
+
+.stakeholder-card h5 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.stakeholder-card p {
+  font-size: 11px;
+  color: #717171;
+  line-height: 1.45;
+}
+
+/* ========================================
+   Slide 4: Impact
+   ======================================== */
+.slide-impact {
+  padding: 16px 0;
+  text-align: center;
+}
+
+.slide-impact > h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 24px;
+}
+
+.impact-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.impact-card {
+  padding: 28px 16px;
+  background: linear-gradient(145deg, #fff5f5 0%, #ffffff 100%);
+  border: 1px solid #ebebeb;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.impact-card:hover {
+  box-shadow: 0 6px 20px rgba(255, 90, 95, 0.1);
+  transform: translateY(-3px);
+}
+
+.impact-number {
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--airbnb-coral);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.impact-label {
+  font-size: 12px;
+  color: #717171;
+  font-weight: 500;
+}
+
+/* Feature Tags */
+.feature-section {
+  margin-top: 8px;
+}
+
+.feature-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 14px;
+}
+
+.feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.feature-tag {
+  padding: 7px 16px;
+  background: #f7f7f7;
+  border: 1px solid #ebebeb;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #222;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.feature-tag:hover {
+  background: #222;
+  color: white;
+  border-color: #222;
+}
+
+/* ========================================
+   Program 1 – Outcome Cards (square → expand)
+   ======================================== */
+.slide-impact--p1 {
+  padding: 12px 0 20px;
+  min-height: 420px;
+}
+
+.p1-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  align-items: start;
+}
+
+/* Card */
+.p1-impact-card {
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  --p1-arrow-balance-gap: 18px;
+  --p1-after-bottom-gap: 50px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.p1-impact-card:hover {
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 0 0 4px rgba(255, 90, 95, 0.1);
+}
+
+/* Face — square via aspect-ratio */
+.p1-card-face {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* Title strip */
+.p1-card-title {
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+/* Number area — centered */
+.p1-face-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Before number — bigger, muted */
+.p1-num-before {
+  font-size: 56px;
+  font-weight: 800;
+  color: #d0d0d0;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+/* Labels */
+.p1-ba-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b8b8b8;
+}
+
+.p1-ba-after-sect .p1-ba-label {
+  color: rgba(255, 90, 95, 0.6);
+}
+
+/* Expand section — hidden initially, grows on click.
+   overflow: clip + clip-margin lets the line extend into the face area
+   above the expand section's top edge. */
+.p1-card-expand {
+  overflow: clip;
+  overflow-clip-margin: 20px;
+  max-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.p1-impact-card[data-state="animating"] .p1-card-expand,
+.p1-impact-card[data-state="done"] .p1-card-expand {
+  max-height: 205px;
+}
+
+/* Growing vertical line */
+.p1-expand-line {
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, #e0e0e0, var(--airbnb-coral));
+  border-radius: 1px;
+  margin-top: -22px;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+}
+
+.p1-impact-card[data-state="animating"] .p1-expand-line,
+.p1-impact-card[data-state="done"] .p1-expand-line {
+  height: 42px;
+}
+
+/* Arrow chevron — appears at tip of line */
+.p1-expand-arrowhead {
+  color: var(--airbnb-coral);
+  margin-top: -2px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease 0.55s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s;
+}
+
+.p1-impact-card[data-state="animating"] .p1-expand-arrowhead,
+.p1-impact-card[data-state="done"] .p1-expand-arrowhead {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* After section — travels down from arrow tip position */
+.p1-ba-after-sect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--p1-arrow-balance-gap) 0 var(--p1-after-bottom-gap);
+  opacity: 0;
+  transform: translateY(-44px);
+  transition: opacity 0.4s ease 0.3s,
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.p1-impact-card[data-state="animating"] .p1-ba-after-sect,
+.p1-impact-card[data-state="done"] .p1-ba-after-sect {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animated after number */
+.p1-card-number {
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--airbnb-coral);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+/* ========================================
+   Program 1 – Challenge Flip Cards
+   ======================================== */
+.slide-ch-p1 {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Extra space before Trade-offs section title */
+.slide-ch-p1 .ch-flip-list + .ch-section-title {
+  margin-top: 18px;
+}
+
+/* Section headers — match scenario-text h4 */
+.ch-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 8px;
+}
+
+.ch-flip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.ch-flip {
+  position: relative;
+}
+
+/* Shared face base */
+.ch-face {
+  border-radius: 14px;
+  border: 2px solid #e0e0e0;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Front face */
+.ch-face-front {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 26px 28px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ch-face-front:hover {
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 0 0 4px rgba(255, 90, 95, 0.1);
+}
+
+.ch-flip.is-flipped .ch-face-front {
+  display: none;
+}
+
+.ch-label-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  flex: 1;
+}
+
+.ch-front-arrow {
+  color: #c0c0c0;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.ch-face-front:hover .ch-front-arrow {
+  transform: translateX(3px);
+  color: var(--airbnb-coral);
+}
+
+/* Back face */
+.ch-face-back {
+  display: none;
+  align-items: stretch;
+  border-color: var(--airbnb-coral);
+  min-height: 90px;
+}
+
+.ch-flip.is-flipped .ch-face-back {
+  display: flex;
+  animation: ch-reveal 0.4s cubic-bezier(.25,.46,.45,.94) both;
+}
+
+@keyframes ch-reveal {
+  from { opacity: 0; transform: perspective(600px) rotateY(-8deg); }
+  to   { opacity: 1; transform: perspective(600px) rotateY(0deg); }
+}
+
+/* Problem section (40%) — no dividing line */
+.ch-problem {
+  flex: 4;
+  padding: 18px 18px;
+  display: flex;
+  align-items: center;
+}
+
+.ch-problem-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.4;
+}
+
+/* Arrow button — matches scenario-img-btn style */
+.ch-arrow-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  align-self: center;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--airbnb-coral);
+  transition: background 0.2s ease, transform 0.2s ease;
+  margin: 0 12px 0 -8px;
+}
+
+.ch-arrow-btn:hover {
+  background: var(--airbnb-coral);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* All items revealed — disable further clicks */
+.ch-flip[data-all-revealed="true"] .ch-arrow-btn {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Solution section (60%) — always visible after flip, items revealed one-by-one */
+.ch-solution {
+  flex: 6;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+}
+
+.ch-solution ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Each solution item hidden until revealed */
+.ch-solution ul li {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  line-height: 1.5;
+  padding-left: 18px;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.ch-solution ul li.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ch-solution ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--airbnb-coral);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ========================================
+   Program 2 – Challenges 2×2 Grid Layout
+   ======================================== */
+
+/* 2×2 grid — all cells share the same fixed height */
+.ch-flip-list--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 280px;
+  gap: 12px;
+}
+
+/* Card stretches to fill the fixed cell; both faces share that height */
+.ch-flip-list--grid .ch-flip {
+  height: 280px;
+}
+
+.ch-flip-list--grid .ch-face-front--center,
+.ch-flip-list--grid .ch-face-back--col {
+  height: 280px;
+  box-sizing: border-box;
+}
+
+/* Front face – title centered, no arrow */
+.ch-face-front--center {
+  justify-content: center;
+  align-items: center;
+  padding: 24px 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Inherits base .ch-label-text: 16px / 700 */
+
+/* Back face – vertical column layout */
+.ch-face-back--col {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+/* Title block — centered */
+.ch-problem--col {
+  flex: none !important;
+  padding: 16px 16px 10px;
+  text-align: center;
+}
+
+/* Inherits base .ch-problem-title: 14px / 700 */
+
+/* Challenge description — blockquote style, non-italic, matches solution font */
+.ch-challenge-desc {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  line-height: 1.5;
+  margin: 0 14px 8px;
+  padding: 8px 12px;
+  font-style: normal;
+  border-left: 3px solid var(--airbnb-coral);
+  background: rgba(255, 90, 95, 0.05);
+  border-radius: 0 6px 6px 0;
+  flex-shrink: 0;
+}
+
+/* Arrow button in vertical back — centered */
+.ch-face-back--col .ch-arrow-btn {
+  align-self: center;
+  margin: 4px auto 4px;
+  flex-shrink: 0;
+}
+
+/* Solution block in vertical back */
+.ch-solution--col {
+  flex: 1 !important;
+  padding: 2px 16px 10px !important;
+  align-items: flex-start !important;
+}
+
+/* Inherits base .ch-solution ul li: 14px / 500 / #444 / 1.5 */
+
+/* Trade-offs block — no fill */
+.ch-tradeoff {
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.ch-tradeoff-header {
+  padding: 12px 18px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #222;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ch-tradeoff-body {
+  padding: 0 18px 4px;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+/* Reasons — ctx-card-item style */
+.ch-td-items {
+  display: flex;
+  flex-direction: column;
+  flex: 7;
+}
+
+.ch-td-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.ch-td-item::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--airbnb-coral);
+  flex-shrink: 0;
+}
+
+.ch-td-item:last-child {
+  border-bottom: none;
+}
+
+.ch-td-item span {
+  font-size: 13px;
+  color: #484848;
+  line-height: 1.4;
+}
+
+/* e.g. section */
+.ch-tradeoff-example {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  flex: 3;
+  padding-top: 9px;
+  padding-left: 14px;
+}
+
+.ch-example-label {
+  font-size: 13px;
+  color: #aaa;
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.ch-example-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ch-example-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  background: #f7f7f7;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 5px 12px;
+}
+
+/* ========================================
+   Slide 5: Challenges
+   ======================================== */
+.slide-challenges {
+  padding: 16px 0;
+}
+
+.challenge-section {
+  margin-bottom: 24px;
+}
+
+.challenge-section > h4 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 14px;
+}
+
+.challenge-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.challenge-card {
+  padding: 20px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 14px;
+}
+
+.challenge-card h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.challenge-card h5 svg {
+  width: 15px;
+  height: 15px;
+  color: var(--airbnb-coral);
+  flex-shrink: 0;
+}
+
+.challenge-card p {
+  font-size: 12px;
+  color: #484848;
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+
+.challenge-solution {
+  font-size: 12px;
+  color: var(--airbnb-teal);
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  line-height: 1.45;
+}
+
+.challenge-solution svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Trade-off */
+.tradeoff-block {
+  padding: 20px;
+  background: #fff8f0;
+  border: 1px solid #f0e0d0;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.tradeoff-block h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tradeoff-block h5 svg {
+  width: 15px;
+  height: 15px;
+  color: #e67e22;
+}
+
+.tradeoff-block p {
+  font-size: 12px;
+  color: #484848;
+  line-height: 1.6;
+}
+
+/* Retrospective */
+.retro-section h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.retro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.retro-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #484848;
+  line-height: 1.45;
+  padding: 10px 14px;
+  background: #f0f8ff;
+  border-radius: 10px;
+}
+
+.retro-list li svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: #1a73e8;
+}
+
+/* ========================================
+   Section Sub-Heading (matches Side Works style)
+   ======================================== */
+.proj-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  margin-top: 4px;
+}
+
+.proj-sec-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+svg.proj-sec-icon {
+  border-radius: 0;
+}
+
+.proj-section-heading h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+/* ========================================
+   Shared Bixby Context
+   ======================================== */
+.bixby-context {
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+
+.bixby-intro-desc {
+  font-size: 13px;
+  color: #717171;
+  line-height: 1.55;
+  margin-bottom: 8px;
+  margin-top: -6px;
+}
+
+.bixby-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.bixby-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border: 1px solid #ebebeb;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #484848;
+  background: #f7f7f7;
+  cursor: default;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bixby-tag:hover {
+  background: var(--airbnb-coral);
+  border-color: var(--airbnb-coral);
+  color: white;
+}
+
+.bixby-cap-cols {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.bixby-cap-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+}
+
+.bixby-cap-divider {
+  width: 1px;
+  background: #e8e8e8;
+  align-self: stretch;
+  margin: 0 16px;
+  flex-shrink: 0;
+}
+
+.bixby-cap-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #484848;
+  text-align: center;
+}
+
+/* Icons spread evenly — spacing based on icon position, not label width */
+.bixby-cap-icons {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.bixby-cap-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.bixby-cap-img-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+}
+
+.bixby-cap-svg-icon {
+  width: 46px;
+  height: 46px;
+  display: block;
+}
+
+.bixby-cap-icon-item span {
+  font-size: 11px;
+  color: #717171;
+  text-align: center;
+  line-height: 1.25;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* ========================================
+   Project Selector Cards
+   ======================================== */
+.proj-select-box {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 48px;
+}
+
+.proj-select-card {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: 2px solid #ebebeb;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  transition: border-color 0.45s ease, box-shadow 0.45s ease;
+  position: relative;
+  padding: 0;
+  white-space: normal;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.proj-select-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+}
+
+.proj-connector-svg {
+  display: block;
+  overflow: visible;
+}
+
+.proj-select-card:hover {
+  border-color: #c8c8c8;
+  background: transparent;
+  color: inherit;
+}
+
+.proj-select-card.is-clicking {
+  border-color: var(--airbnb-coral);
+  box-shadow: 0 4px 20px rgba(255, 90, 95, 0.18);
+  animation: cardActivate 0.55s ease;
+}
+
+.proj-select-card.is-active {
+  border-color: var(--airbnb-coral);
+  background: transparent;
+  color: inherit;
+}
+
+@keyframes cardActivate {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+.proj-card-img-wrap {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: 14px auto 0;
+  border-radius: 10px;
+}
+
+.proj-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.proj-select-card:hover .proj-card-img-wrap img {
+  transform: scale(1.03);
+}
+
+.proj-card-body {
+  padding: 10px 14px 14px;
+  flex: 1;
+}
+
+.proj-card-program {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b0b0b0;
+  margin-bottom: 2px;
+  transition: color 0.45s ease;
+}
+
+.proj-card-period {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 6px;
+}
+
+.proj-select-card.is-clicking .proj-card-program,
+.proj-select-card.is-active .proj-card-program {
+  color: var(--airbnb-coral);
+}
+
+.proj-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+
+.proj-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  counter-reset: proj-item;
+}
+
+.proj-card-list li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 0;
+  border-top: 1px solid #f0f0f0;
+  font-size: 12px;
+  color: #484848;
+  counter-increment: proj-item;
+  line-height: 1.3;
+}
+
+.proj-card-list li::before {
+  content: counter(proj-item);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 600;
+  color: #b0b0b0;
+  transition: border-color 0.45s ease, color 0.45s ease;
+}
+
+.proj-select-card.is-clicking .proj-card-list li::before,
+.proj-select-card.is-active .proj-card-list li::before {
+  border-color: var(--airbnb-coral);
+  color: var(--airbnb-coral);
+}
+
+/* ========================================
+   Bixby Evolution Table (Project 2 Context slide)
+   ======================================== */
+.bixby-evolution-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.evo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.evo-row.evo-header .evo-col {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 10px;
+  border-radius: 8px;
+  justify-content: center;
+}
+
+.evo-row.evo-header .evo-before {
+  background: #f0f0f0;
+  color: #717171;
+}
+
+.evo-row.evo-header .evo-after {
+  color: var(--airbnb-coral);
+}
+
+.evo-row:not(.evo-header) {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 0;
+  overflow: hidden;
+}
+
+.evo-row:not(.evo-header).is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 80px;
+}
+
+.evo-col {
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+}
+
+.evo-before {
+  background: #f7f7f7;
+  color: #717171;
+  text-decoration: line-through;
+  text-decoration-color: #c0c0c0;
+}
+
+.evo-after {
+  border: 1px solid #e0e0e0;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Fixed cell dimensions inside orb card */
+.ctx-orb-card .evo-row:not(.evo-header) .evo-col {
+  height: 46px;
+  overflow: hidden;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.ctx-orb-card .evo-row.is-revealed {
+  max-height: none;
+}
+
+/* ========================================
+   Responsive for Bixby Context + Project Selector
+   ======================================== */
+@media (max-width: 640px) {
+  .bixby-cap-cols {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .bixby-cap-divider {
+    width: 100%;
+    height: 1px;
+    margin: 4px 0;
+  }
+  .bixby-cap-icons { gap: 14px; }
+
+  .proj-select-box { flex-direction: column; }
+  .proj-select-arrow { transform: rotate(90deg); }
+  .proj-card-img-wrap { height: 100px; }
+}
+
+/* Placeholder */
+.project-placeholder {
+  text-align: center;
+  padding: 80px 0;
+  color: #b0b0b0;
+}
+
+.project-placeholder svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.project-placeholder p {
+  font-size: 15px;
+  color: #b0b0b0;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (max-width: 768px) {
+  .proj-select-img-wrap { height: 90px; }
+  .proj-select-body { padding: 12px 14px 16px; }
+
+  .stats-row { gap: 10px; }
+  .stat-card { padding: 18px 10px; }
+  .stat-card .stat-value { font-size: 24px; }
+
+  .slide-context { grid-template-columns: 1fr; gap: 24px; }
+
+  .scenario-tabs { flex-wrap: wrap; }
+  .scenario-content { grid-template-columns: 1fr; gap: 24px; }
+  .phone-frame {
+    width: 200px;
+    height: 400px;
+    margin: 0 auto;
+  }
+
+  .process-timeline { padding: 14px 6px; }
+  .process-node { min-width: 64px; }
+  .triangle-bottom { flex-direction: column; gap: 12px; align-items: center; }
+
+  .impact-numbers {
+    grid-template-columns: 1fr;
+    max-width: 240px;
+    margin: 0 auto 32px;
+  }
+
+  .challenge-cards { grid-template-columns: 1fr; }
+  .deck-nav-hint { display: none; }
+}
+
+@media (max-width: 480px) {
+  .slide-overview h3 { font-size: 24px; }
+  .stats-row { grid-template-columns: 1fr; max-width: 180px; }
+  .scenario-tab { padding: 6px 12px; font-size: 12px; }
+  .process-node { min-width: 56px; }
+  .node-icon-wrap { width: 36px; height: 36px; }
+  .node-icon-wrap svg { width: 16px; height: 16px; }
+}
+
+/* ========================================
+   Project 2: AI Integration — Unique Styles
+   ======================================== */
+
+/* AI Hero Image */
+.overview-ai {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ai-hero-img {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  animation: aiFloat 4s ease-in-out infinite;
+}
+
+@keyframes aiFloat {
+  0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 12px rgba(78, 134, 255, 0.2)); }
+  50% { transform: translateY(-8px); filter: drop-shadow(0 12px 24px rgba(78, 134, 255, 0.35)); }
+}
+
+/* Agent Pipeline — Bixby behind-the-scenes process */
+.agent-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 14px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+  border: 1px solid #e0e7ff;
+  border-radius: 14px;
+  padding: 6px 10px;
+  overflow: hidden;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 4px;
+  position: relative;
+}
+
+.pipeline-step:not(:last-child) {
+  border-bottom: 1px solid rgba(78, 134, 255, 0.08);
+}
+
+.pipeline-num {
+  width: 22px;
+  height: 22px;
+  background: #4E86FF;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.pipeline-step:last-child .pipeline-num {
+  background: var(--airbnb-teal);
+}
+
+.pipeline-body {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.pipeline-action {
+  font-size: 11px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.pipeline-data {
+  font-size: 10px;
+  color: #717171;
+  font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========================================
+   Phone App Action Cards (Cross-App Demo)
+   ======================================== */
+
+/* P2 phone chat: scrollable for multi-step demos */
+#deck-ai-integration .phone-chat {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+#deck-ai-integration .phone-chat::-webkit-scrollbar {
+  display: none;
+}
+
+/* Phone-chat inside bixby-home-screen: reserve space above the dock */
+.phone-screen.bixby-home-screen .phone-chat {
+  padding-bottom: 62px;
+}
+
+/* CrossApp: stack bubbles top-down + prevent flex compression so scroll works */
+[data-scenario-phone="crossapp"] .phone-chat {
+  justify-content: flex-start;
+}
+
+[data-scenario-phone="crossapp"] .phone-bubble {
+  flex-shrink: 0;
+}
+
+/* Hide bubbles in P2 until JS reveals them — allows many-step demos */
+#deck-ai-integration .phone-bubble {
+  display: none;
+}
+
+#deck-ai-integration .phone-bubble.is-visible {
+  display: block;
+  animation: bubbleIn 0.35s ease forwards;
+}
+
+/* App action card inside the phone */
+.phone-bubble.is-app {
+  align-self: stretch;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+}
+
+.app-action-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(78, 134, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.app-action-icon {
+  font-size: 9px;
+  line-height: 1;
+}
+
+.app-action-name {
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.app-action-status {
+  margin-left: auto;
+  font-size: 7px;
+  font-weight: 600;
+  color: rgba(78, 134, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.app-action-body {
+  padding: 4px 8px 5px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}
+
+.app-result-line {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.app-result-line strong {
+  color: #4E86FF;
+}
+
+.app-result-sub {
+  font-size: 7.5px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 1px;
+}
+
+/* App-specific header tints */
+.phone-bubble.is-app[data-app="internet"] .app-action-header { background: rgba(78, 134, 255, 0.15); }
+.phone-bubble.is-app[data-app="internet"] .app-action-status { color: rgba(78, 134, 255, 0.9); }
+
+.phone-bubble.is-app[data-app="contacts"] .app-action-header { background: rgba(52, 211, 153, 0.15); }
+.phone-bubble.is-app[data-app="contacts"] .app-action-status { color: rgba(52, 211, 153, 0.9); }
+
+.phone-bubble.is-app[data-app="messages"] .app-action-header { background: rgba(255, 171, 64, 0.15); }
+.phone-bubble.is-app[data-app="messages"] .app-action-status { color: rgba(255, 171, 64, 0.9); }
+
+.phone-bubble.is-app[data-app="clock"] .app-action-header { background: rgba(124, 92, 255, 0.15); }
+.phone-bubble.is-app[data-app="clock"] .app-action-status { color: rgba(124, 92, 255, 0.9); }
+
+/* P2 phones: black Bixby-style background */
+#deck-ai-integration .phone-screen.bixby-home-screen {
+  background: #000;
+}
+#deck-ai-integration .phone-screen.bixby-home-screen.is-summoned .bixby-bg-dim,
+#deck-ai-integration .phone-screen.bixby-home-screen.is-started .bixby-bg-dim {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Bixby chat header */
+.bixby-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px 4px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 5;
+}
+.bch-left { display: flex; align-items: center; gap: 6px; }
+.bch-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
+.bch-right { display: flex; gap: 10px; }
+.bch-icon { width: 16px; height: 16px; color: rgba(255,255,255,0.7); }
+
+/* P2 phone-chat z-index above bg-dim */
+#deck-ai-integration .phone-chat {
+  position: relative;
+  z-index: 2;
+}
+
+/* P2 bubble colours — dark Bixby style, applied to both crossapp + iot */
+[data-scenario-phone="crossapp"] .phone-bubble.is-user,
+[data-scenario-phone="iot"] .phone-bubble.is-user {
+  background: #2c2c2e;
+  color: #fff;
+}
+[data-scenario-phone="crossapp"] .phone-bubble.is-bot,
+[data-scenario-phone="iot"] .phone-bubble.is-bot {
+  background: #1c1c1e;
+  color: #fff;
+  border-color: #38383a;
+}
+[data-scenario-phone="crossapp"] .phone-bubble.is-app,
+[data-scenario-phone="iot"] .phone-bubble.is-app {
+  background: #1c1c1e;
+  border-color: #38383a;
+}
+
+/* Process step bubbles — subtle Bixby-running indicator */
+.phone-bubble.is-process {
+  align-self: flex-start;
+  max-width: 100%;
+  background: transparent !important;
+  border: none !important;
+  color: rgba(255,255,255,0.42);
+  font-size: 9px;
+  font-style: italic;
+  padding: 0 4px 0 2px;
+  border-radius: 0;
+}
+
+/* Dock pulse when waiting for user tap */
+.bixby-dock-bixby.is-awaiting-input .bixby-dock-img {
+  animation: bixbyDockPulse 1.2s ease-in-out infinite !important;
+}
+
+/* Responsibility Grid */
+.responsibility-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.resp-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 16px;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+
+.resp-card:hover {
+  background: white;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.resp-icon {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border: 1.5px solid var(--airbnb-coral);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.resp-icon svg {
+  width: 18px;
+  height: 18px;
+  color: var(--airbnb-coral);
+}
+
+.resp-card h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.resp-card p {
+  font-size: 11px;
+  color: #717171;
+  line-height: 1.45;
+}
+
+/* Stakeholder Row (4-column) */
+.stakeholder-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Zero-Risk Badge */
+.zero-risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+  border: 1px solid #c8e6c9;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 28px;
+}
+
+.zero-risk-badge svg {
+  width: 18px;
+  height: 18px;
+  color: #2e7d32;
+}
+
+/* ========================================
+   Project 2: Responsive
+   ======================================== */
+@media (max-width: 768px) {
+  .responsibility-grid { grid-template-columns: 1fr; }
+  .stakeholder-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pipeline-body { flex-direction: column; gap: 1px; }
+}
+
+@media (max-width: 480px) {
+  .stakeholder-row { grid-template-columns: 1fr; }
+}
+
+/* ========================================
+   Bixby Realistic Home Screen UI
+   (used for P1 scenario phone mockups)
+   ======================================== */
+
+/* Override dark space background with Android home screen feel */
+.phone-screen.bixby-home-screen {
+  background: linear-gradient(160deg, #3a4d6e 0%, #4a6080 40%, #56768a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wallpaper area — fills space above the dialog */
+.bixby-wallpaper {
+  flex: 1;
+  padding: 10px 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 60px;
+}
+
+/* Row of mock app icons */
+.bixby-app-row {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+}
+
+.bixby-app-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+/* App icon colours */
+.bi-linkedin  { background: #0077B5; }
+.bi-spotify   { background: #1DB954; }
+.bi-instagram { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+.bi-gallery   { background: #8B4CF5; }
+.bi-chrome    { background: conic-gradient(#EA4335 0deg 90deg, #FBBC05 90deg 180deg, #34A853 180deg 270deg, #4285F4 270deg 360deg); border-radius: 50%; }
+
+/* Overlay disappears as soon as demo starts */
+.phone-screen.bixby-home-screen.is-waking .chat-start-overlay,
+.phone-screen.bixby-home-screen.is-summoned .chat-start-overlay,
+.phone-screen.bixby-home-screen.is-typing .chat-start-overlay,
+.phone-screen.bixby-home-screen.is-started .chat-start-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Background dim — wallpaper darkens once Bixby is summoned */
+.bixby-bg-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.7s ease;
+  pointer-events: none;
+}
+
+.phone-screen.bixby-home-screen.is-summoned .bixby-bg-dim,
+.phone-screen.bixby-home-screen.is-typing .bixby-bg-dim,
+.phone-screen.bixby-home-screen.is-started .bixby-bg-dim {
+  background: rgba(0, 5, 25, 0.5);
+}
+
+/* "Hi Bixby" — centered speech bubble with typewriter text */
+.phone-screen.bixby-home-screen .bixby-wake-text {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.88);
+  z-index: 6;
+  padding: 9px 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px 18px 18px 4px;  /* speech-bubble tail bottom-left */
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.96);
+  white-space: nowrap;
+  min-width: 20px;
+  min-height: 1em;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.phone-screen.bixby-home-screen.is-waking .bixby-wake-text {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Speech-to-text pill — typewriter above Bixby dock (scenarios 2 & 3) */
+.bixby-speech-pill {
+  position: absolute;
+  bottom: 62px;    /* just above the dock (dock top ≈ 56px from bottom) */
+  left: 8px;
+  right: 8px;
+  z-index: 4;
+  padding: 7px 14px;
+  background: rgba(225, 230, 248, 0.22);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: center;
+  min-height: 30px;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events: none;
+}
+
+.phone-screen.bixby-home-screen.is-typing .bixby-speech-pill {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.phone-screen.bixby-home-screen.is-started .bixby-speech-pill {
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ========================================
+   Bixby Dialog (frosted glass bottom sheet)
+   ======================================== */
+.bixby-dialog {
+  position: absolute;
+  bottom: 58px;
+  left: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 18px 18px 16px 16px;
+  padding: 10px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(100% + 70px));
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 3;
+  box-shadow: 0 -2px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.phone-screen.bixby-home-screen.is-started .bixby-dialog {
+  transform: translateY(0);
+}
+
+/* Gear icon row */
+.bixby-dialog-gear-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+
+.bixby-gear-icon {
+  width: 16px;
+  height: 16px;
+  color: #aaa;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Dialog steps — only active one is visible */
+.bixby-dialog-step {
+  display: none;
+  flex-direction: column;
+}
+
+.bixby-dialog-step.is-active {
+  display: flex;
+  animation: bixbyStepIn 0.3s ease both;
+}
+
+@keyframes bixbyStepIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Small hint text at top (e.g. "帮你找到了这个结果。") */
+.bixby-dialog-hint {
+  font-size: 8.5px;
+  color: #888;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Main response text */
+.bixby-dialog-text {
+  font-size: 10px;
+  color: #222;
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+
+/* Question text (bolder) */
+.bixby-dialog-question {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+
+/* "Correct answer!" line */
+.bixby-dialog-correct {
+  font-size: 11px;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 5px;
+}
+
+/* ========================================
+   Options list (vertical, with dividers)
+   ======================================== */
+.bixby-dialog-opts {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 4px;
+  background: white;
+}
+
+.bixby-opt {
+  padding: 7px 11px;
+  text-align: left;
+  font-size: 10.5px;
+  color: #222;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  line-height: 1.3;
+}
+
+.bixby-opt:last-child {
+  border-bottom: none;
+}
+
+.bixby-opt:hover {
+  background: #f5f7ff;
+}
+
+.bixby-opt.is-selected {
+  background: rgba(78, 134, 255, 0.1);
+  color: #4E86FF;
+  font-weight: 600;
+}
+
+/* ========================================
+   Action chips row (bottom of dialog)
+   ======================================== */
+.bixby-dialog-chips-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-top: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-wrap: nowrap;
+}
+
+.bixby-dialog-chips-row::-webkit-scrollbar { display: none; }
+
+.bixby-chip {
+  padding: 4px 9px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font-size: 9px;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.bixby-chip:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+/* Keyboard icon at the end of chips row */
+.bixby-chip-kb {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.bixby-chip-kb svg {
+  width: 15px;
+  height: 15px;
+  color: #bbb;
+}
+
+/* ========================================
+   Bottom dock (app bar) with Bixby icon
+   ======================================== */
+.bixby-phone-dock {
+  position: absolute;
+  bottom: 14px;
+  left: 5px;
+  right: 5px;
+  height: 42px;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 2;
+  padding: 4px 8px;
+}
+
+.bixby-dock-app {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.bixby-dock-bixby {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.bixby-dock-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
+  transform: scale(0.85);
+  filter: drop-shadow(0 0 4px rgba(78, 134, 255, 0.2));
+}
+
+/* Dock app colours */
+.dock-mail   { background: #EA4335; }
+.dock-maps   { background: #4285F4; }
+.dock-gemini { background: #111; }
+.dock-camera { background: #444; }
+
+/* Dock hidden until Bixby is summoned */
+.phone-screen.bixby-home-screen .bixby-phone-dock {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.phone-screen.bixby-home-screen.is-summoned .bixby-phone-dock,
+.phone-screen.bixby-home-screen.is-typing .bixby-phone-dock,
+.phone-screen.bixby-home-screen.is-started .bixby-phone-dock {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bixby dock icon pulses while summoned / user is speaking */
+.phone-screen.bixby-home-screen.is-summoned .bixby-dock-img,
+.phone-screen.bixby-home-screen.is-typing .bixby-dock-img {
+  animation: bixbyDockPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes bixbyDockPulse {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 8px rgba(78, 134, 255, 0.55)); }
+  50%       { transform: scale(1.18); filter: drop-shadow(0 0 18px rgba(78, 134, 255, 0.8)); }
+}
+
+.phone-screen.bixby-home-screen.is-started .bixby-dock-img {
+  transform: scale(1);
+  filter: drop-shadow(0 0 6px rgba(78, 134, 255, 0.4));
+  animation: none;
+}
+
+/* ========================================
+   Bixby Dialog — Rich Content (cross-app, recipes)
+   ======================================== */
+
+/* Hide Bixby gear row when dialog enters cross-app context */
+.bixby-dialog.is-cross-app .bixby-dialog-gear-row {
+  display: none;
+}
+
+/* Dou Guo app header (icon + name + gear) — mirrors screenshots */
+.bixby-app-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 8px;
+}
+
+.bixby-app-header-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.bixby-app-header-name {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+  flex: 1;
+}
+
+.bixby-app-header-gear {
+  width: 13px;
+  height: 13px;
+  color: #ccc;
+  flex-shrink: 0;
+}
+
+/* Sort label above recipe list */
+.bixby-sort-label {
+  font-size: 8px;
+  color: #aaa;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* User-typed option (voice input simulation) */
+.bixby-opt.bixby-opt-user {
+  background: rgba(78, 134, 255, 0.05);
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bixby-opt.bixby-opt-user::before {
+  content: '🎤';
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* Typewriter text element */
+.bixby-typewriter {
+  font-size: 10.5px;
+  color: #333;
+}
+
+.bixby-typewriter.is-typing::after {
+  content: '|';
+  color: #4E86FF;
+  animation: bixbyCursorBlink 0.7s step-end infinite;
+}
+
+@keyframes bixbyCursorBlink {
+  50% { opacity: 0; }
+}
+
+/* Recipe list — full-width stacked cards (matches screenshot 2) */
+.bixby-recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 7px;
+}
+
+.bixby-recipe-card {
+  border-radius: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: white;
+}
+
+.bixby-recipe-img {
+  width: 100%;
+  height: 50px;
+  object-fit: cover;
+  display: block;
+}
+
+.bixby-recipe-body {
+  padding: 4px 6px 5px;
+}
+
+.bixby-recipe-name {
+  font-size: 9px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+.bixby-recipe-ingr {
+  font-size: 7.5px;
+  color: #888;
+  line-height: 1.2;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Recipe detail image with counter badge (matches screenshot 3) */
+.bixby-recipe-detail-wrap {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.bixby-recipe-detail-img {
+  width: 100%;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.bixby-recipe-count-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+  font-size: 7px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.bixby-ingr-title {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+}
+
+.bixby-ingr-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bixby-ingr-list li {
+  font-size: 8.5px;
+  color: #484848;
+  padding: 2px 0;
+  border-bottom: 1px solid #f5f5f5;
+  line-height: 1.35;
+}
+
+.bixby-ingr-list li:last-child {
+  border-bottom: none;
+}
+
+/* Mid-dialog voice recognition box — appears inside the step after dock click */
+.bixby-voice-input {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 5px 9px;
+  background: rgba(78, 134, 255, 0.07);
+  border: 1px solid rgba(78, 134, 255, 0.22);
+  border-radius: 10px;
+}
+
+.bixby-voice-input.is-active {
+  display: flex;
+}
+
+.bixby-voice-mic-icon {
+  width: 11px;
+  height: 11px;
+  color: #4E86FF;
+  flex-shrink: 0;
+}
+
+.bixby-voice-text {
+  font-size: 10.5px;
+  color: #222;
+  font-weight: 500;
+  flex: 1;
+}
+
+.bixby-voice-text.is-typing::after {
+  content: '|';
+  color: #4E86FF;
+  animation: bixbyCursorBlink 0.7s step-end infinite;
+}
+
+/* Zero-risk deployment badge (Program 2 Outcome) */
+.zero-risk-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+  background: #edf7ed;
+  border: 1.5px solid #a5d6a7;
+  border-radius: 999px;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 600;
+  width: fit-content;
+}

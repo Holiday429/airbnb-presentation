@@ -1,0 +1,293 @@
+/* Project Highlights Specific Styles */
+
+/* Root Variables for this module */
+:root {
+  --ph-bg-color: #F7F7F7;
+  --ph-card-bg: #FFFFFF;
+  --ph-text-primary: #222222;
+  --ph-text-secondary: #717171;
+  --ph-accent: #000000; /* Samsung/Bixby often uses black/blue but keeping it minimal */
+  --ph-samsung-blue: #1428A0; /* Brand color reference */
+  --ph-card-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  --ph-card-hover-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  --ph-transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#project-highlights-content {
+  background-color: var(--ph-bg-color);
+  min-height: 100vh;
+  padding: 40px 60px; /* Adjust based on global content padding */
+  overflow-y: auto;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Header Section */
+.ph-header {
+  margin-bottom: 60px;
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.ph-breadcrumbs {
+  font-size: 14px;
+  color: var(--ph-text-secondary);
+  font-weight: 500;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ph-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--ph-text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.ph-subtitle {
+  font-size: 24px;
+  color: var(--ph-text-secondary);
+  font-weight: 400;
+}
+
+/* Main Grid Layout */
+.ph-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Cards (Modular) */
+.ph-card {
+  background: var(--ph-card-bg);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--ph-card-shadow);
+  transition: var(--ph-transition);
+  display: flex;
+  flex-direction: column;
+  opacity: 0; /* Hidden initially for animation */
+  transform: translateY(20px);
+}
+
+.ph-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ph-card:hover {
+  box-shadow: var(--ph-card-hover-shadow);
+  transform: translateY(-4px); /* Subtle lift */
+}
+
+/* Section: Intro / Context */
+.ph-intro-card {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+}
+
+.ph-intro-text {
+  flex: 1;
+}
+
+.ph-intro-visual {
+  flex: 0 0 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ph-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ph-text-secondary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.ph-heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--ph-text-primary);
+}
+
+.ph-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ph-text-secondary);
+}
+
+/* Section: The Why (Grid of 4) */
+.ph-why-section {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.ph-why-card {
+  text-align: center;
+  padding: 24px;
+  border-radius: 20px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.ph-why-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.ph-why-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--ph-text-primary);
+}
+
+.ph-why-desc {
+  font-size: 14px;
+  color: var(--ph-text-secondary);
+  line-height: 1.4;
+}
+
+/* Section: Storytelling / Features */
+.ph-story-section {
+  grid-column: span 12;
+  margin-top: 40px;
+}
+
+.ph-story-card {
+  display: flex;
+  background: #FFF;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--ph-card-shadow);
+  margin-bottom: 32px;
+  min-height: 300px;
+}
+
+.ph-story-content {
+  flex: 1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ph-story-visual {
+  flex: 1;
+  background: #F0F2F5;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Specific Feature Styling */
+.story-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ph-text-secondary);
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+/* Animations for progressive reveal */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered Delay Helpers */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* Interactive Elements */
+.ph-btn-reveal {
+  background: none;
+  border: none;
+  color: var(--ph-text-primary);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 16px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: opacity 0.2s;
+}
+
+.ph-btn-reveal:hover {
+  opacity: 0.7;
+}
+
+/* Role & Impact */
+.ph-role-grid {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.ph-impact-metric {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ph-samsung-blue);
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Challenges (Accordion style or Cards) */
+.ph-challenge-card {
+  grid-column: span 6; /* 2 cols */
+  padding: 32px;
+}
+
+.ph-challenge-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .ph-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ph-story-card {
+    flex-direction: column;
+  }
+  
+  .ph-why-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
