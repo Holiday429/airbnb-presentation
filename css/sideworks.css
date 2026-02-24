@@ -299,6 +299,13 @@
   mix-blend-mode: multiply;
 }
 
+.app-detail-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
 /* Play button overlay */
 .app-video-play-btn {
   position: absolute;

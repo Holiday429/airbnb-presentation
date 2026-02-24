@@ -105,26 +105,30 @@ function initVideoPlayers() {
 
   wrappers.forEach(function (wrapper) {
     var video = wrapper.querySelector("video");
-    var btn = wrapper.querySelector(".app-video-play-btn");
-    if (!video) return;
+    var iframe = wrapper.querySelector("iframe");
 
-    wrapper.addEventListener("click", function () {
-      if (video.paused) {
-        video.play();
-        wrapper.classList.add("is-playing");
-      } else {
-        video.pause();
+    if (video) {
+      wrapper.addEventListener("click", function () {
+        if (video.paused) {
+          video.play();
+          wrapper.classList.add("is-playing");
+        } else {
+          video.pause();
+          wrapper.classList.remove("is-playing");
+        }
+      });
+      video.addEventListener("pause", function () {
         wrapper.classList.remove("is-playing");
-      }
-    });
-
-    // Restore play button when video ends (loop is off-case) or is paused externally
-    video.addEventListener("pause", function () {
-      wrapper.classList.remove("is-playing");
-    });
-    video.addEventListener("play", function () {
-      wrapper.classList.add("is-playing");
-    });
+      });
+      video.addEventListener("play", function () {
+        wrapper.classList.add("is-playing");
+      });
+    } else if (iframe) {
+      // iframe has Google Drive's built-in player; clicking overlay hides the play button
+      wrapper.addEventListener("click", function () {
+        wrapper.classList.add("is-playing");
+      });
+    }
   });
 }
 
